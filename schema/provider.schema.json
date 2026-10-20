@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/andreasaracino/torstream-providers/main/schema/provider.schema.json",
+  "title": "Torstream provider definition",
+  "description": "Declarative, data-only description of how to query a provider. Draft v1 (Spike S5).",
+  "type": "object",
+  "required": ["schemaVersion", "id", "name", "version", "type", "categories", "languages", "baseUrls", "search", "mapping", "limits"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,40}$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 60 },
+    "version": { "type": "integer", "minimum": 1, "description": "Bumped on every change to this definition." },
+    "description": { "type": "string", "maxLength": 300 },
+    "type": { "enum": ["json-api", "html", "rss", "stremio-addon", "torznab"] },
+    "categories": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "enum": ["movie", "series", "anime", "other"] }
+    },
+    "languages": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z]{2,3}$" },
+      "description": "ISO 639 codes of the content languages the provider mostly lists."
+    },
+    "baseUrls": {
+      "type": "array", "minItems": 1,
+      "items": { "type": "string", "format": "uri", "pattern": "^https://" },
+      "description": "Mirrors, tried in order (failover)."
+    },
+    "fetch": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "mode": { "enum": ["http", "webview"], "default": "http" },
+        "headers": { "type": "object", "additionalProperties": { "type": "string" } }
+      }
+    },
+    "search": {
+      "type": "object", "additionalProperties": false, "minProperties": 1,
+      "description": "Path/query templates relative to a base URL. Placeholders: {imdb} {tmdb} {anilist} {query} {season} {episode} {page}.",
+      "properties": {
+        "byImdb": { "type": "string" },
+        "byTmdb": { "type": "string" },
+        "byAnilist": { "type": "string" },
+        "byQuery": { "type": "string" },
+        "byQueryEpisode": { "type": "string" }
+      }
+    },
+    "detail": {
+      "type": "object", "additionalProperties": false,
+      "description": "Optional second request per item, when the list page lacks the magnet/infohash.",
+      "properties": {
+        "url": { "type": "string", "description": "Mapping path in the list item that yields the detail URL." },
+        "mapping": { "$ref": "#/$defs/fieldMapping" }
+      }
+    },
+    "mapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["items", "fields"],
+      "properties": {
+        "items": { "type": "string", "description": "JSONPath (json-api, stremio-addon, torznab) or CSS selector (html, rss) selecting result items." },
+        "fields": { "$ref": "#/$defs/fieldMapping" }
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["rps", "timeoutMs", "maxResponseKb"],
+      "properties": {
+        "rps": { "type": "number", "exclusiveMinimum": 0, "maximum": 10 },
+        "timeoutMs": { "type": "integer", "minimum": 1000, "maximum": 30000 },
+        "maxResponseKb": { "type": "integer", "minimum": 16, "maximum": 8192 },
+        "maxPages": { "type": "integer", "minimum": 1, "maximum": 5, "default": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "fieldMapping": {
+      "type": "object", "additionalProperties": false,
+      "description": "Each value: a JSONPath / CSS selector (optionally with '@attr' or '|regex:<re>'), or a template using {field} references.",
+      "properties": {
+        "name": { "type": "string" },
+        "infohash": { "type": "string" },
+        "magnet": { "type": "string" },
+        "torrentUrl": { "type": "string" },
+        "size": { "type": "string" },
+        "seeders": { "type": "string" },
+        "leechers": { "type": "string" },
+        "uploaded": { "type": "string" },
+        "fileIndex": { "type": "string" },
+        "detailUrl": { "type": "string" }
+      },
+      "anyOf": [
+        { "required": ["infohash"] },
+        { "required": ["magnet"] },
+        { "required": ["torrentUrl"] },
+        { "required": ["detailUrl"] }
+      ]
+    }
+  }
+}
