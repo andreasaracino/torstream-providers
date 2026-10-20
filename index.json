@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "packVersion": 0,
-  "minAppSchemaVersion": 1,
+  "minAppSchemaVersion": 2,
   "providers": []
 }

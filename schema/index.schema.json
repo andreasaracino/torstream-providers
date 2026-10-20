@@ -3,28 +3,88 @@
   "$id": "https://raw.githubusercontent.com/andreasaracino/torstream-providers/main/schema/index.schema.json",
   "title": "Torstream provider pack index",
   "type": "object",
-  "required": ["schemaVersion", "packVersion", "minAppSchemaVersion", "providers"],
+  "required": [
+    "schemaVersion",
+    "packVersion",
+    "minAppSchemaVersion",
+    "providers"
+  ],
   "additionalProperties": false,
   "properties": {
-    "schemaVersion": { "const": 1 },
-    "packVersion": { "type": "integer", "minimum": 0, "description": "Increases with every published pack." },
-    "minAppSchemaVersion": { "type": "integer", "minimum": 1, "description": "Apps supporting an older provider schema must ignore this pack." },
+    "schemaVersion": {
+      "const": 2
+    },
+    "packVersion": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Increases with every published pack."
+    },
+    "minAppSchemaVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Apps supporting an older provider schema must ignore this pack."
+    },
     "providers": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "version", "categories", "languages", "recommended", "path", "sha256"],
+        "required": [
+          "id",
+          "name",
+          "version",
+          "categories",
+          "languages",
+          "recommended",
+          "path",
+          "sha256"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{1,40}$" },
-          "name": { "type": "string" },
-          "description": { "type": "string", "maxLength": 300 },
-          "version": { "type": "integer", "minimum": 1 },
-          "categories": { "type": "array", "items": { "enum": ["movie", "series", "anime", "other"] } },
-          "languages": { "type": "array", "items": { "type": "string", "pattern": "^[a-z]{2,3}$" } },
-          "recommended": { "type": "boolean" },
-          "path": { "type": "string", "pattern": "^providers/[a-z0-9-]+\\.json$" },
-          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$", "description": "Hash of the definition file; the signed index thereby covers every definition." }
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,40}$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 300
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "movie",
+                "series",
+                "anime",
+                "other"
+              ]
+            }
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z]{2,3}$"
+            }
+          },
+          "recommended": {
+            "type": "boolean"
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^providers/[a-z0-9-]+\\.json$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "Hash of the definition file; the signed index thereby covers every definition."
+          }
         }
       }
     }
