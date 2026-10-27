@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "packVersion": 2,
+  "packVersion": 3,
   "minAppSchemaVersion": 2,
   "providers": [
     {
@@ -39,7 +39,7 @@
       "id": "ilcorsaronero",
       "name": "Il Corsaro Nero",
       "description": "Italian index: films and series in Italian (search: Italian title). Blocked on many Italian networks: shown as unreachable there.",
-      "version": 1,
+      "version": 2,
       "categories": [
         "movie",
         "series"
@@ -49,7 +49,7 @@
       ],
       "recommended": false,
       "path": "providers/ilcorsaronero.json",
-      "sha256": "20fb69c6151b07bc8be3f0fa7219baea463108d6b13466f8dba1f2cc1633f5cb"
+      "sha256": "5393f2c5f0ac1ed59dc53f94505aed4f0751dbd55440b5f36206e733bb75fe6e"
     }
   ]
 }

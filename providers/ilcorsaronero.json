@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "id": "ilcorsaronero",
   "name": "Il Corsaro Nero",
-  "version": 1,
+  "version": 2,
   "description": "Italian index: films and series in Italian (search: Italian title). Blocked on many Italian networks: shown as unreachable there.",
   "type": "html",
   "categories": [
@@ -46,7 +46,7 @@
   },
   "limits": {
     "rps": 2,
-    "timeoutMs": 10000,
+    "timeoutMs": 25000,
     "maxResponseKb": 1024
   }
 }
