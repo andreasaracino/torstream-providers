@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "id": "ilcorsaronero",
+  "name": "Il Corsaro Nero",
+  "version": 1,
+  "description": "Italian index: films and series in Italian (search: Italian title). Blocked on many Italian networks: shown as unreachable there.",
+  "type": "html",
+  "categories": [
+    "movie",
+    "series"
+  ],
+  "languages": [
+    "it"
+  ],
+  "baseUrls": [
+    "https://ilcorsaronero.link"
+  ],
+  "fetch": {
+    "mode": "http",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 7a) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36",
+      "Accept": "text/html,application/xhtml+xml",
+      "Accept-Language": "it-IT,it;q=0.9"
+    }
+  },
+  "search": {
+    "byQuery": "/search?q={query}",
+    "byQueryEpisode": "/search?q={query} S{season:02}E{episode:02}"
+  },
+  "mapping": {
+    "items": "tbody tr",
+    "fields": {
+      "name": "a[href*=\"/torrent/\"]",
+      "detailUrl": "a[href*=\"/torrent/\"]@href",
+      "magnet": "a[href^=\"magnet:\"]@href",
+      "seeders": "[class*=\"text-green\"] || td:nth-child(3)",
+      "leechers": "[class*=\"text-red\"] || td:nth-child(4)",
+      "size": "td:nth-child(5)",
+      "uploaded": "td:nth-child(6)"
+    }
+  },
+  "detail": {
+    "mapping": {
+      "magnet": "a[href^=\"magnet:\"]@href"
+    }
+  },
+  "limits": {
+    "rps": 2,
+    "timeoutMs": 10000,
+    "maxResponseKb": 1024
+  }
+}
