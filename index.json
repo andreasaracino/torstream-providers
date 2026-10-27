@@ -1,6 +1,39 @@
 {
   "schemaVersion": 2,
-  "packVersion": 0,
+  "packVersion": 1,
   "minAppSchemaVersion": 2,
-  "providers": []
+  "providers": [
+    {
+      "id": "tpb",
+      "name": "The Pirate Bay",
+      "description": "General index: films and series, including some Italian releases (search: original title + \"ita\").",
+      "version": 2,
+      "categories": [
+        "movie",
+        "series"
+      ],
+      "languages": [
+        "en",
+        "it"
+      ],
+      "recommended": true,
+      "path": "providers/tpb.json",
+      "sha256": "3b24fd5228f54c683a4f7fe47bbb7727d67e71b91882c16c7eef716a1240b54d"
+    },
+    {
+      "id": "subsplease",
+      "name": "SubsPlease",
+      "description": "Anime simulcasts with English subtitles (search by romaji title).",
+      "version": 1,
+      "categories": [
+        "anime"
+      ],
+      "languages": [
+        "ja"
+      ],
+      "recommended": true,
+      "path": "providers/subsplease.json",
+      "sha256": "a30df27f445242ddd09607b4d2a9d3a6db3b96e63ede21c93adbcfd96cfabe88"
+    }
+  ]
 }

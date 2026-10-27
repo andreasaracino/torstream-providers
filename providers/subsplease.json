@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 2,
+  "id": "subsplease",
+  "name": "SubsPlease",
+  "version": 1,
+  "description": "Anime simulcasts with English subtitles (search by romaji title).",
+  "type": "json-api",
+  "categories": [
+    "anime"
+  ],
+  "languages": [
+    "ja"
+  ],
+  "baseUrls": [
+    "https://subsplease.org"
+  ],
+  "search": {
+    "byQuery": "/api/?f=search&tz=UTC&s={query}"
+  },
+  "mapping": {
+    "items": "$.*",
+    "each": "$.downloads[*]",
+    "fields": {
+      "name": "[SubsPlease] {$$.show} - {$$.episode} ({$.res}p)",
+      "magnet": "$.magnet",
+      "uploaded": "$$.release_date"
+    }
+  },
+  "limits": {
+    "rps": 1,
+    "timeoutMs": 8000,
+    "maxResponseKb": 4096
+  }
+}

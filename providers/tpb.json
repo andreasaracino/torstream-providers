@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "id": "tpb",
+  "name": "The Pirate Bay",
+  "version": 2,
+  "description": "General index: films and series, including some Italian releases (search: original title + \"ita\").",
+  "type": "json-api",
+  "categories": [
+    "movie",
+    "series"
+  ],
+  "languages": [
+    "en",
+    "it"
+  ],
+  "baseUrls": [
+    "https://apibay.org"
+  ],
+  "search": {
+    "byImdb": "/q.php?q={imdb}&cat=200",
+    "byQuery": "/q.php?q={query}&cat=200",
+    "byQueryEpisode": "/q.php?q={query} S{season:02}E{episode:02}&cat=200"
+  },
+  "mapping": {
+    "items": "$[*]",
+    "fields": {
+      "name": "$.name",
+      "infohash": "$.info_hash",
+      "size": "$.size",
+      "seeders": "$.seeders",
+      "leechers": "$.leechers",
+      "uploaded": "$.added",
+      "imdb": "$.imdb"
+    }
+  },
+  "filters": [
+    {
+      "field": "infohash",
+      "notMatch": "^0{40}$"
+    }
+  ],
+  "limits": {
+    "rps": 1,
+    "timeoutMs": 8000,
+    "maxResponseKb": 2048
+  }
+}
