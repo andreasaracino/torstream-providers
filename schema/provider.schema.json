@@ -286,6 +286,10 @@
         },
         "imdb": {
           "type": "string"
+        },
+        "public": {
+          "type": "string",
+          "description": "For a private provider: non-empty when this row is a public torrent (e.g. it has a magnet), which plays normally."
         }
       },
       "anyOf": [

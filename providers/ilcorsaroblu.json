@@ -2,8 +2,8 @@
   "schemaVersion": 2,
   "id": "ilcorsaroblu",
   "name": "Il Corsaro Blu",
-  "version": 2,
-  "description": "Italian tracker: films and series in Italian. Needs your account (log in from Settings → Providers). Private: Play and Download not available yet.",
+  "version": 3,
+  "description": "Italian tracker: films and series in Italian. Needs your account (log in from Settings → Providers). Its own (private) torrents can't be played yet; public ones (magnet) can.",
   "type": "html",
   "private": true,
   "categories": [
@@ -37,11 +37,12 @@
     "byQueryEpisode": "/index.php?page=torrents&search={query} S{season:02}E{episode:02}"
   },
   "mapping": {
-    "items": "a[href*=\"download.php\"] @closest tr",
+    "items": "a[href^=\"magnet:\"], a[href*=\"download.php\"] @closest tr",
     "fields": {
       "name": "a[href$=\".html\"] ~ ^(.*?)(?: torrent)?$",
-      "infohash": "a[href*=\"download.php\"]@href ~ id=([0-9a-fA-F]{40})",
+      "infohash": "a[href^=\"magnet:\"]@href ~ btih:([0-9a-fA-F]{40}) || a[href*=\"download.php\"]@href ~ id=([0-9a-fA-F]{40})",
       "torrentUrl": "a[href*=\"download.php\"]@href",
+      "public": "a[href^=\"magnet:\"]@href",
       "seeders": "td[class*=\"#FFFF00\"]",
       "leechers": "td[class*=\"#FF0000\"]",
       "size": "td:nth-child(10)",
