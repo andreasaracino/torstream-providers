@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "packVersion": 5,
+  "packVersion": 6,
   "minAppSchemaVersion": 2,
   "providers": [
     {
@@ -72,7 +72,7 @@
       "id": "ilcorsaroblu",
       "name": "Il Corsaro Blu",
       "description": "Italian tracker: films and series in Italian. Needs your account (log in from Settings → Providers). Private: Play and Download not available yet.",
-      "version": 1,
+      "version": 2,
       "categories": [
         "movie",
         "series"
@@ -82,7 +82,7 @@
       ],
       "recommended": false,
       "path": "providers/ilcorsaroblu.json",
-      "sha256": "dbbddb91dbbad66ec3121c20bcb49df5b6d66666f4005f1112856d322447c57e"
+      "sha256": "d1e0acfa5c3c649e01f78352197ecc6c3495a25e518f11e4d7afdc94335e9647"
     }
   ]
 }
