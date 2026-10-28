@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "id": "ilcorsaroblu",
   "name": "Il Corsaro Blu",
-  "version": 3,
+  "version": 4,
   "description": "Italian tracker: films and series in Italian. Needs your account (log in from Settings → Providers). Its own (private) torrents can't be played yet; public ones (magnet) can.",
   "type": "html",
   "private": true,
@@ -46,7 +46,8 @@
       "seeders": "td[class*=\"#FFFF00\"]",
       "leechers": "td[class*=\"#FF0000\"]",
       "size": "td:nth-child(10)",
-      "uploaded": "td:nth-child(5)"
+      "uploaded": "td:nth-child(5)",
+      "magnet": "a[href^=\"magnet:\"]@href"
     }
   },
   "limits": {
