@@ -148,7 +148,7 @@
       "properties": {
         "items": {
           "type": "string",
-          "description": "JSONPath (json-api, stremio-addon, torznab) or CSS selector (html, rss) selecting result items (or groups, when 'each' is set)."
+          "description": "JSONPath (json-api, stremio-addon, torznab) or CSS selector (html, rss) selecting result items (or groups, when 'each' is set). For html, 'selector @closest tag' takes the enclosing element of each match."
         },
         "fields": {
           "$ref": "#/$defs/fieldMapping"
@@ -217,13 +217,42 @@
           }
         }
       }
+    },
+    "private": {
+      "type": "boolean",
+      "default": false,
+      "description": "A private tracker: its torrents carry the user's passkey (app ADR-0031)."
+    },
+    "auth": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "loginPath"
+      ],
+      "description": "The provider needs the user's account: the app opens loginPath in a web view, the user logs in there, and the session cookies go with every request (app ADR-0031).",
+      "properties": {
+        "loginPath": {
+          "type": "string"
+        },
+        "loggedOutMarker": {
+          "type": "string",
+          "description": "Text of the page shown instead of results when the session is missing or expired."
+        },
+        "cookies": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Cookie names that mean 'logged in'."
+        }
+      }
     }
   },
   "$defs": {
     "fieldMapping": {
       "type": "object",
       "additionalProperties": false,
-      "description": "Each value is a JSONPath ('$…' on the item, '$$…' on the parent item when 'each' is used; CSS selector with '@attr' for html) or a template with {path} references, e.g. '[Group] {$$.show} - {$$.episode} ({$.res}p)'. Numeric fields are coerced from strings. From 'magnet' the runtime derives the hex infohash (hex or base32 btih), the size ('xl') and a fallback name ('dn'). 'uploaded' accepts unix seconds or RFC 2822 dates.",
+      "description": "Each value is a JSONPath ('$…' on the item, '$$…' on the parent item when 'each' is used; CSS selector with '@attr' for html) or a template with {path} references, e.g. '[Group] {$$.show} - {$$.episode} ({$.res}p)'. Numeric fields are coerced from strings. From 'magnet' the runtime derives the hex infohash (hex or base32 btih), the size ('xl') and a fallback name ('dn'). 'uploaded' accepts unix seconds or RFC 2822 dates. For html, ' ~ regex' keeps the regex's first group, and ' || ' separates alternatives tried in order.",
       "properties": {
         "name": {
           "type": "string"
