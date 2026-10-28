@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 2,
+  "id": "1337x",
+  "name": "1337x",
+  "version": 1,
+  "description": "General index, multilingual: films and series. Blocked on many Italian networks: shown as unreachable there.",
+  "type": "html",
+  "categories": [
+    "movie",
+    "series"
+  ],
+  "languages": [
+    "en",
+    "it"
+  ],
+  "baseUrls": [
+    "https://1337x.to",
+    "https://1337x.st",
+    "https://x1337x.ws",
+    "https://x1337x.eu"
+  ],
+  "fetch": {
+    "mode": "http",
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Linux; Android 16; Pixel 7a) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36",
+      "Accept": "text/html,application/xhtml+xml"
+    }
+  },
+  "search": {
+    "byQuery": "/search/{query}/1/",
+    "byQueryEpisode": "/search/{query} S{season:02}E{episode:02}/1/"
+  },
+  "mapping": {
+    "items": "table.table-list tbody tr",
+    "fields": {
+      "name": "td.name a[href^=\"/torrent/\"]",
+      "detailUrl": "td.name a[href^=\"/torrent/\"]@href",
+      "seeders": "td.seeds",
+      "leechers": "td.leeches",
+      "size": "td.size"
+    }
+  },
+  "detail": {
+    "mapping": {
+      "magnet": "a[href^=\"magnet:\"]@href"
+    }
+  },
+  "limits": {
+    "rps": 2,
+    "timeoutMs": 15000,
+    "maxResponseKb": 1024
+  }
+}
